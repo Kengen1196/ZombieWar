@@ -4,13 +4,11 @@ abstract class Combatant {
     private boolean alive;
     private int health;
     private int attack;
-    private String type;
 
-    public Combatant(boolean alive, int health, int attack, String type) {
+    public Combatant(boolean alive, int health, int attack) {
         this.alive = alive;
         this.health = health;
         this.attack = attack;
-        this.type = type;
     }
 
     public int getHealth() {
@@ -21,44 +19,48 @@ abstract class Combatant {
         this.health = health;
     }
 
+    public void setDead(boolean death) {
+        this.alive = death;
+    }
+
     public void attacks(Combatant combatant) {
         combatant.setHealth(combatant.getHealth() - this.attack);
+        if (combatant.getHealth() == 0) {
+            combatant.setDead(true);
+        }
     }
 
     public boolean isDead() {
-        if (this.health <= 0) {
-            alive = false;
-        }
         return alive;
     }
 }
 
 class Soldier extends Combatant {
     public Soldier() {
-        super(true, 50, 5, "Survivor");
+        super(true, 50, 5);
     }
 }
 
 class Mercenary extends Combatant {
     public Mercenary() {
-        super(true, 100, 10, "Survivor");
+        super(true, 100, 10);
     }
 }
 
 class Newbie extends Combatant {
     public Newbie() {
-        super(true, 20, 2, "Survivor");
+        super(true, 20, 2);
     }
 }
 
 class Common extends Combatant {
     public Common() {
-        super(true, 30, 5, "Zombie");
+        super(true, 30, 5);
     }
 }
 
 class Tank extends Combatant {
     public Tank() {
-        super(true, 150, 20, "Zombie");
+        super(true, 150, 20);
     }
 }
