@@ -13,6 +13,7 @@ public class BattleManager {
     }
 
     public void play() {
+        // Opening message of the game based on whichever faction is faction1
         if (faction1.getFaction() == 0) {
             System.out.println("We have " + faction1.getAlive() + " survivors trying to make it to safety");
             System.out.println("But there are " + faction2.getAlive() + " zombies waiting for them");
@@ -20,13 +21,17 @@ public class BattleManager {
             System.out.println("We have " + faction2.getAlive() + " survivors trying to make it to safety");
             System.out.println("But there are " + faction1.getAlive() + " zombies waiting for them");
         }
+        // Prints the end result and simulates the game
         System.out.println(getBattleResults());
     }
 
+    // Used to simulate the game and print the results at the end of it
     public String getBattleResults() {
+        // As long as both factions are not empty the game will continue playing
         while (faction1.getAlive() > 0 && faction2.getAlive() > 0) {
             this.doTurn();
         }
+        // Messages based on whatever faction won and whoever went first
         if (faction1.getAlive() == 0) {
             if (faction1.getFaction() == 0) {
                 return "None of the survivors made it.";
@@ -42,6 +47,7 @@ public class BattleManager {
         }
     }
 
+    // Every turn is simulated in half turns flipping between each faction
     private void doTurn() {
         if (faction2.getAlive() > 0) {
             doHalfTurn(faction1, faction2);
@@ -51,10 +57,14 @@ public class BattleManager {
         }
     }
 
+    // Each half turn has an attacker and a defender
     private void doHalfTurn(Group attacker, Group defender) {
+        // An attacker and a defender will always be chosen at random and the defender
+        // takes damage
         int attackerPos = random.nextInt(attacker.getAlive());
         int defenderPos = random.nextInt(defender.getAlive());
         attacker.getFighter(attackerPos).attacks(defender.getFighter(defenderPos));
+        // If defender dies then it is moved into the deceased array.
         if (defender.getFighter(defenderPos).isDead() == true) {
             defender.moveKilled(defenderPos);
         }

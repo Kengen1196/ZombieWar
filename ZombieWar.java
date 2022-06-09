@@ -9,19 +9,24 @@ public class ZombieWar {
     public Group faction2;
     Random rand = new Random();
 
+    // A menu with currently 1 choice to select from
     public void menu() {
         System.out.println("Please select your options.\n 1)Start Game");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
         switch (choice) {
             case 1:
+                // creates an instance of the battle manager
                 currentBattle = doZombieWar();
+                // plays the game
                 currentBattle.play();
         }
         input.close();
     }
 
+    // generates and instance of the battle manager and generates the factions
     private BattleManager doZombieWar() {
+        // flavor to decide which group attacks first
         int group1 = rand.nextInt(2);
         if (group1 == 0) {
             faction1 = generateHumanGroup();
@@ -34,6 +39,7 @@ public class ZombieWar {
 
     }
 
+    // generates the factiosn
     private Group generateHumanGroup() {
         return new Group(0);
     }
