@@ -15,11 +15,15 @@ public class BattleManager {
     public void play() {
         // Opening message of the game based on whichever faction is faction1
         if (faction1.getFaction() == 0) {
-            System.out.println("We have " + faction1.getAlive() + " survivors trying to make it to safety");
-            System.out.println("But there are " + faction2.getAlive() + " zombies waiting for them");
+            System.out.println("We have " + faction1.getAlive() + " survivors trying to make it to safety "
+                    + faction1.getCombatants());
+            System.out.println(
+                    "But there are " + faction2.getAlive() + " zombies waiting for them " + faction2.getCombatants());
         } else {
-            System.out.println("We have " + faction2.getAlive() + " survivors trying to make it to safety");
-            System.out.println("But there are " + faction1.getAlive() + " zombies waiting for them");
+            System.out.println("We have " + faction2.getAlive() + " survivors trying to make it to safety"
+                    + faction2.getCombatants());
+            System.out.println(
+                    "But there are " + faction1.getAlive() + " zombies waiting for them" + faction1.getCombatants());
         }
         // Prints the end result and simulates the game
         System.out.println(getBattleResults());
@@ -66,6 +70,9 @@ public class BattleManager {
         attacker.getFighter(attackerPos).attacks(defender.getFighter(defenderPos));
         // If defender dies then it is moved into the deceased array.
         if (defender.getFighter(defenderPos).isDead() == true) {
+            // Prints a message of what attacker killed what defender
+            System.out.println(attacker.getFighter(attackerPos).getName() + " killed "
+                    + defender.getFighter(defenderPos).getName());
             defender.moveKilled(defenderPos);
         }
     }

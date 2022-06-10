@@ -11,6 +11,11 @@ public class Group {
     private Random rand = new Random();
     private int numCombatants;
     private int faction;
+    private int numSoldiers = 0;
+    private int numMercenary = 0;
+    private int numNewbies = 0;
+    private int numCommon = 0;
+    private int numTanks = 0;
 
     // Group initiates based on what the inputted faction 0 for survivors while any
     // other for zombies
@@ -22,40 +27,35 @@ public class Group {
 
         // Function for generating survivors
         if (faction == 0) {
-            int numSoldiers = 0;
-            int numMercenary = 0;
-            int numNewbies = 0;
-            // Loops adding a random survivor entity based on random number generated
+            // Loops adding a random survivor entity based on random number generated and
+            // assigns an id
             for (int x = 0; x < numCombatants; x++) {
                 choice = rand.nextInt(3);
                 switch (choice) {
                     case 0:
-                        fighters.add(new Newbie());
+                        fighters.add(new Newbie(numNewbies));
                         numNewbies++;
 
                     case 1:
-                        fighters.add(new Mercenary());
+                        fighters.add(new Mercenary(numMercenary));
                         numMercenary++;
 
                     case 2:
-                        fighters.add(new Soldier());
+                        fighters.add(new Soldier(numSoldiers));
                         numSoldiers++;
                 }
             }
             // Zombie generation function
         } else {
-            int numCommon = 0;
-            int numTanks = 0;
-
             // Loops for zombie entities based on random number generated
             for (int x = 0; x < numCombatants; x++) {
                 choice = rand.nextInt(2);
                 switch (choice) {
                     case 0:
-                        fighters.add(new Common());
+                        fighters.add(new Common(numCommon));
                         numCommon++;
                     case 1:
-                        fighters.add(new Tank());
+                        fighters.add(new Tank(numTanks));
                         numTanks++;
                 }
             }
@@ -67,8 +67,18 @@ public class Group {
         deadFighters.add(fighters.remove(combatant));
     }
 
+    // Getters and setters
     public int getAlive() {
         return fighters.size();
+    }
+
+    // prints the quantity of each class
+    public String getCombatants() {
+        if (faction == 0) {
+            return "(" + numNewbies + " Newbies, " + numSoldiers + " Soldiers, " + numMercenary + " Mercenaries)";
+        } else {
+            return "(" + numCommon + " Common, " + numTanks + " Tanks)";
+        }
     }
 
     public int getDead() {

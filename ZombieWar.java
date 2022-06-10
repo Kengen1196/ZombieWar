@@ -39,7 +39,7 @@ public class ZombieWar {
 
     }
 
-    // generates the factiosn
+    // generates the factions
     private Group generateHumanGroup() {
         return new Group(0);
     }
