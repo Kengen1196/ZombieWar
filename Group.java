@@ -96,4 +96,13 @@ public class Group {
     public int getFaction() {
         return faction;
     }
+
+    /**
+     * Get number of elements in fighters ArrayList.
+     * 
+     * @return int size of fighters
+     */
+    public int getNumFighters() {
+        return this.fighters.size();
+    }
 }

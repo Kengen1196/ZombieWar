@@ -65,15 +65,21 @@ public class BattleManager {
     private void doHalfTurn(Group attacker, Group defender) {
         // An attacker and a defender will always be chosen at random and the defender
         // takes damage
-        int attackerPos = random.nextInt(attacker.getAlive());
-        int defenderPos = random.nextInt(defender.getAlive());
-        attacker.getFighter(attackerPos).attacks(defender.getFighter(defenderPos));
-        // If defender dies then it is moved into the deceased array.
-        if (defender.getFighter(defenderPos).isDead() == true) {
-            // Prints a message of what attacker killed what defender
-            System.out.println(attacker.getFighter(attackerPos).getName() + " killed "
-                    + defender.getFighter(defenderPos).getName());
-            defender.moveKilled(defenderPos);
+        /*
+         * Need to handle if there are no more attackers remaining. Check to see
+         * if there are any left
+         */
+        if (attacker.getNumFighters() > 0) {
+            int attackerPos = random.nextInt(attacker.getAlive());
+            int defenderPos = random.nextInt(defender.getAlive());
+            attacker.getFighter(attackerPos).attacks(defender.getFighter(defenderPos));
+            // If defender dies then it is moved into the deceased array.
+            if (defender.getFighter(defenderPos).isDead() == true) {
+                // Prints a message of what attacker killed what defender
+                System.out.println(attacker.getFighter(attackerPos).getName() + " killed "
+                        + defender.getFighter(defenderPos).getName());
+                defender.moveKilled(defenderPos);
+            } 
         }
     }
 }
