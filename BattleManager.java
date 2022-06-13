@@ -3,9 +3,9 @@ package ZombieWar;
 import java.util.Random;
 
 public class BattleManager {
-    private Group faction1;
-    private Group faction2;
-    private Random random = new Random();
+    private final Group faction1;
+    private final Group faction2;
+    private final Random random = new Random();
 
     public BattleManager(Group faction1, Group faction2) {
         this.faction1 = faction1;
@@ -38,15 +38,15 @@ public class BattleManager {
         // Messages based on whatever faction won and whoever went first
         if (faction1.getAlive() == 0) {
             if (faction1.getFaction() == 0) {
-                return "None of the survivors made it.";
+                return "\nNone of the survivors made it.";
             } else {
-                return "It seems " + faction2.getAlive() + " survivors have made it to safety";
+                return "\nIt seems " + faction2.getAlive() + " survivors have made it to safety";
             }
         } else {
             if (faction2.getFaction() == 0) {
-                return "None of the survivors made it.";
+                return "\nNone of the survivors made it.";
             } else {
-                return "It seems " + faction1.getAlive() + " have made it to safety";
+                return "\nIt seems " + faction1.getAlive() + " have made it to safety";
             }
         }
     }
@@ -65,6 +65,7 @@ public class BattleManager {
     private void doHalfTurn(Group attacker, Group defender) {
         // An attacker and a defender will always be chosen at random and the defender
         // takes damage
+        
         /*
          * Need to handle if there are no more attackers remaining. Check to see
          * if there are any left
@@ -76,10 +77,19 @@ public class BattleManager {
             // If defender dies then it is moved into the deceased array.
             if (defender.getFighter(defenderPos).isDead() == true) {
                 // Prints a message of what attacker killed what defender
-                System.out.println(attacker.getFighter(attackerPos).getName() + " killed "
-                        + defender.getFighter(defenderPos).getName());
+                // Added combatant nicknames to message
+                System.out.println(attacker.getFighter(attackerPos).getName() + 
+                        " (" + 
+                        attacker.getFighter(attackerPos).getNickname() +
+                        ") killed "
+                        + defender.getFighter(defenderPos).getName() +
+                        " (" +
+                        defender.getFighter(defenderPos).getNickname() +
+                        ")");
                 defender.moveKilled(defenderPos);
             } 
         }
+
     }
 }
+
