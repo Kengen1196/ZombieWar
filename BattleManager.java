@@ -65,31 +65,37 @@ public class BattleManager {
     private void doHalfTurn(Group attacker, Group defender) {
         // An attacker and a defender will always be chosen at random and the defender
         // takes damage
-        
+
         /*
          * Need to handle if there are no more attackers remaining. Check to see
          * if there are any left
          */
         if (attacker.getNumFighters() > 0) {
+            int hit = random.nextInt(101);
             int attackerPos = random.nextInt(attacker.getAlive());
             int defenderPos = random.nextInt(defender.getAlive());
-            attacker.getFighter(attackerPos).attacks(defender.getFighter(defenderPos));
-            // If defender dies then it is moved into the deceased array.
-            if (defender.getFighter(defenderPos).isDead() == true) {
-                // Prints a message of what attacker killed what defender
-                // Added combatant nicknames to message
-                System.out.println(attacker.getFighter(attackerPos).getName() + 
-                        " (" + 
-                        attacker.getFighter(attackerPos).getNickname() +
-                        ") killed "
-                        + defender.getFighter(defenderPos).getName() +
-                        " (" +
-                        defender.getFighter(defenderPos).getNickname() +
-                        ")");
-                defender.moveKilled(defenderPos);
-            } 
+            if (attacker.getFighter(attackerPos).getAcc() > hit) {
+                attacker.getFighter(attackerPos).attacks(defender.getFighter(defenderPos));
+                // If defender dies then it is moved into the deceased array.
+                if (defender.getFighter(defenderPos).isDead() == true) {
+                    // Prints a message of what attacker killed what defender
+                    // Added combatant nicknames to message
+                    System.out.print(attacker.getFighter(attackerPos).getName() +
+                            " (" +
+                            attacker.getFighter(attackerPos).getNickname() +
+                            ") killed "
+                            + defender.getFighter(defenderPos).getName() +
+                            " (" +
+                            defender.getFighter(defenderPos).getNickname() +
+                            ") with their " + attacker.getFighter(attackerPos).getWeaponType());
+                    System.out.println();
+                    defender.moveKilled(defenderPos);
+                }
+            } else {
+                System.out.println(attacker.getFighter(attackerPos).getNickname() + " tries to hit "
+                        + defender.getFighter(defenderPos).getNickname() + " but misses!");
+            }
         }
 
     }
 }
-

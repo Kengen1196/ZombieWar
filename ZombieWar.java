@@ -10,21 +10,20 @@ public class ZombieWar {
     Random rand = new Random();
 
     /**
-     * A menu to navigate the ZombieWar game choices. User may start run of 
+     * A menu to navigate the ZombieWar game choices. User may start run of
      * ZombieWar, Display a description of the game, or exit. Will prompt for
      * valid entry if unable to decipher user selection.
      */
     public void menu() {
         boolean useMenu = true;
         Scanner input = new Scanner(System.in);
-        
+
         while (useMenu) {
             System.out.print("\nSelect your option."
-                + "\n 1)Start Game"
-                + "\n 2)Game Description"
-                + "\n 3)Exit\n");
-            
-            
+                    + "\n 1)Start Game"
+                    + "\n 2)Game Description"
+                    + "\n 3)Exit\n");
+
             String choice = input.nextLine();
             switch (choice) {
                 case "1":
@@ -54,10 +53,10 @@ public class ZombieWar {
                     System.out.println("Please select an option from the list.");
                     break;
             }
-            
+
         }
         input.close();
-        
+
     }
 
     // generates and instance of the battle manager and generates the factions
