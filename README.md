@@ -21,3 +21,6 @@ The BattleManager class runs the combat between the two groups. Combat consists 
 
 ZombieWar
 Controlling the whole process, and linking it to the user control is the ZombieWar class. From here, the user is able to control the game through selecting options from a menu.
+
+Weapons
+The Weapons class contains a set of weapons for the Combatants to use, each with its own damage value and accuracy. The weapon damage is added to the Combatant's inherent damage, and each time an attack is made, the accuracy value is used to determine whether or not the attack is successful.

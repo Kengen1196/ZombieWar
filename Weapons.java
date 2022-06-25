@@ -4,9 +4,9 @@ package ZombieWar;
 abstract class Weapons {
     // Damage is an addition to the combatant's damage, accuracy determines if they
     // are hit, and type is the weapon name
-    private int damage;
-    private int accuracy;
-    private String type;
+    private final int damage;
+    private final int accuracy;
+    private final String type;
 
     // basic super constructor all weapons will use
     public Weapons(int dmg, int acc, String type) {
@@ -38,7 +38,7 @@ class Shotgun extends Weapons {
 
 class Submachinegun extends Weapons {
     public Submachinegun() {
-        super(2, 45, "Submachinegun");
+        super(2, 45, "Submachine Gun");
     }
 }
 

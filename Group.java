@@ -95,6 +95,7 @@ public class Group {
 
     public void moveKilled(int combatant) {
         deadFighters.add(fighters.remove(combatant));
+              
     }
 
     // Getters and setters

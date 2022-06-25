@@ -15,15 +15,15 @@ public class BattleManager {
     public void play() {
         // Opening message of the game based on whichever faction is faction1
         if (faction1.getFaction() == 0) {
-            System.out.println("We have " + faction1.getAlive() + " survivors trying to make it to safety "
+            System.out.println("We have " + faction1.getAlive() + " survivors trying to make it to safety, "
                     + faction1.getCombatants());
             System.out.println(
-                    "But there are " + faction2.getAlive() + " zombies waiting for them " + faction2.getCombatants());
+                    "but there are " + faction2.getAlive() + " zombies waiting for them " + faction2.getCombatants() + ".\n");
         } else {
-            System.out.println("We have " + faction2.getAlive() + " survivors trying to make it to safety"
+            System.out.println("We have " + faction2.getAlive() + " survivors trying to make it to safety, "
                     + faction2.getCombatants());
             System.out.println(
-                    "But there are " + faction1.getAlive() + " zombies waiting for them" + faction1.getCombatants());
+                    "but there are " + faction1.getAlive() + " zombies waiting for them" + faction1.getCombatants() + ".\n");
         }
         // Prints the end result and simulates the game
         System.out.println(getBattleResults());
@@ -53,6 +53,10 @@ public class BattleManager {
 
     // Every turn is simulated in half turns flipping between each faction
     private void doTurn() {
+        // Check combatatant groups each turn for testing
+        faction1.getCombatants();
+        faction2.getCombatants();
+        
         if (faction2.getAlive() > 0) {
             doHalfTurn(faction1, faction2);
         }
@@ -71,29 +75,61 @@ public class BattleManager {
          * if there are any left
          */
         if (attacker.getNumFighters() > 0) {
+            
             int hit = random.nextInt(101);
             int attackerPos = random.nextInt(attacker.getAlive());
             int defenderPos = random.nextInt(defender.getAlive());
+            
+            // Identify the fighters for this round of combat.
+            System.out.println(attacker.getFighter(attackerPos).getType() + 
+                    " " + 
+                    attacker.getFighter(attackerPos).getNickname() +
+                    " faces " +
+                    defender.getFighter(defenderPos).getType() +
+                    " " +
+                    defender.getFighter(defenderPos).getNickname() + 
+                    "(health: " + defender.getFighter(defenderPos).getHealth() + "):");
+            
+            // Check for successful hit using attacker's weapon accuracy
             if (attacker.getFighter(attackerPos).getAcc() > hit) {
+                //attacker.getFighter(attackerPos).attacks(defender.getFighter(defenderPos));
+                /* Successful hit might not result in fatality, so battle 
+                 * details should occur here, with an additional message
+                 * if the defender dies.
+                 */
+                
+                // Prints a message of what attacker killed what defender
+                // Added combatant nicknames to message
+                // Add damage totals to battle description.
+                System.out.print(attacker.getFighter(attackerPos).getNickname() +
+                    " (" +
+                    attacker.getFighter(attackerPos).getName() +
+                    ") attacks "
+                    + defender.getFighter(defenderPos).getNickname() +
+                    " (" +
+                    defender.getFighter(defenderPos).getName() +
+                    ") with their " + attacker.getFighter(attackerPos).getWeaponType() + 
+                    " for " +
+                    attacker.getFighter(attackerPos).getAttack() +
+                    " damage.\n");
+                
                 attacker.getFighter(attackerPos).attacks(defender.getFighter(defenderPos));
+
+                
+                
                 // If defender dies then it is moved into the deceased array.
                 if (defender.getFighter(defenderPos).isDead() == true) {
-                    // Prints a message of what attacker killed what defender
-                    // Added combatant nicknames to message
-                    System.out.print(attacker.getFighter(attackerPos).getName() +
-                            " (" +
-                            attacker.getFighter(attackerPos).getNickname() +
-                            ") killed "
-                            + defender.getFighter(defenderPos).getName() +
-                            " (" +
+
+                    System.out.print(attacker.getFighter(attackerPos).getNickname() +
+                            " defeats " +
                             defender.getFighter(defenderPos).getNickname() +
-                            ") with their " + attacker.getFighter(attackerPos).getWeaponType());
+                            "\n");
                     System.out.println();
                     defender.moveKilled(defenderPos);
                 }
             } else {
                 System.out.println(attacker.getFighter(attackerPos).getNickname() + " tries to hit "
-                        + defender.getFighter(defenderPos).getNickname() + " but misses!");
+                        + defender.getFighter(defenderPos).getNickname() + " but misses!\n");
             }
         }
 

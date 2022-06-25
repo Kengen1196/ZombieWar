@@ -7,7 +7,7 @@ abstract class Combatant {
     private final int attack;
     private final String type;
     private int id;
-    private Weapons weapon;
+    private final Weapons weapon;
 
     // Added nickname variable
     private String nickname;
@@ -49,7 +49,8 @@ abstract class Combatant {
         return this.type;
     }
 
-    public Weapon getWeapon() {
+    // This returned Weapon, changed it to Weapons
+    public Weapons getWeapon() {
         return this.weapon;
     }
 
@@ -60,6 +61,15 @@ abstract class Combatant {
     public int getAcc() {
         return this.weapon.getAcc();
     }
+    
+    /**
+     * Get attack power for this Combatant. Attack is combination of Combatant's 
+     * type and weapon.
+     * @return int value of this.attack.
+     */
+    public int getAttack() {
+        return this.attack;
+    }
 
     public void setID(int id) {
         this.id = id;
@@ -69,8 +79,13 @@ abstract class Combatant {
         this.health = health;
     }
 
-    public void setDead(boolean death) {
-        this.alive = death;
+    /**
+     * Set value of alive to false.
+     * Adjusted to remove parameter to eliminate a layer of confusion--setDead 
+     * should only be able to set the value of alive to false.
+     */
+    public void setDead() {
+        this.alive = false;
     }
 
     /**
@@ -87,17 +102,27 @@ abstract class Combatant {
         // Add dialogue
         System.out.println("\n" + this.getNickname() + ": \"" + this.speak() + "\"");
         System.out.println(combatant.getNickname() + ": \"" + combatant.speak() + "\"" + "\n");
-
+        
+        //System.out.println("Defender initial health: " + combatant.getHealth());
         combatant.setHealth(combatant.getHealth() - this.attack);
+        //System.out.println("Defender adjusted health: " + combatant.getHealth());
+
         // sets the defending combatant status to dead if helath is less than 0
         if (combatant.getHealth() <= 0) {
-            combatant.setDead(true);
+            
+            // Changed the value passed in here.
+            combatant.setDead();
         }
     }
 
-    // Checks if Combatant is dead
+    
+    /**
+     * Checks if Combatant is dead.
+     * @return true if this.alive is false, false if this.alive is true
+     */
     public boolean isDead() {
-        return alive;
+        
+        return !this.alive;
     }
 
     /**
