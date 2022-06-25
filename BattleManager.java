@@ -53,9 +53,6 @@ public class BattleManager {
 
     // Every turn is simulated in half turns flipping between each faction
     private void doTurn() {
-        // Check combatatant groups each turn for testing
-        faction1.getCombatants();
-        faction2.getCombatants();
         
         if (faction2.getAlive() > 0) {
             doHalfTurn(faction1, faction2);
