@@ -77,3 +77,9 @@ class Mouth extends Weapons {
         super(0, 80, "Mouth");
     }
 }
+
+class Hands extends Weapons {
+    public Hands() {
+        super(0, 80, "Hands");
+    }
+}

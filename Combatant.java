@@ -19,6 +19,7 @@ abstract class Combatant {
         this.attack = attack + weapon.getDmg();
         this.type = type;
         this.weapon = weapon;
+        
     }
 
     // getters and setters
@@ -259,6 +260,61 @@ abstract class Combatant {
         int index = (int) (Math.random() * names.length);
 
         return names[index];
+    }
+    
+    public static Weapons randomWeapon(String type) {
+        String[] humanWeapons = {
+            "Shotgun",
+            "Submachine Gun",
+            "Assault Rifle",
+            "Pistol",
+            "Axe",
+            "Crowbar",
+            "Frying Pan"
+        };
+        
+        String[] zombieWeapons = {
+            "Mouth",
+            "Hands"
+            
+        };
+        String weaponType;
+        int index;
+        if (type.equals("Common") || type.equals("Tank")) {
+            // Zombie weapon
+            index = (int) (Math.random() * zombieWeapons.length);
+            weaponType = zombieWeapons[index];
+            switch (weaponType) {
+                case "Mouth" :
+                    return new Mouth();
+                case "Hands" :
+                    return new Hands();
+                default:
+                    return new Mouth();
+            }
+        } else {
+            // Human weapon
+            index = (int) (Math.random() * humanWeapons.length);
+            weaponType = humanWeapons[index];
+            switch (weaponType) {
+                case "Shotgun":
+                    return new Shotgun();
+                case "Submachine Gun":
+                    return new Submachinegun();
+                case "Assault Rifle":
+                    return new AssaultRifle();
+                case "Pistol":
+                    return new Pistol();
+                case "Crowbar":
+                    return new Crowbar();
+                case "Frying Pan":
+                    return new FryingPan();
+                default:
+                    return new Crowbar();
+            }
+        }
+
+
     }
 }
 

@@ -64,6 +64,7 @@ public class ZombieWar {
                     System.out.println("** Axe            **   Accuracy Rating: 90   Attack: 6");                    
                     System.out.println("** Crowbar        **   Accuracy Rating: 80   Attack: 4");
                     System.out.println("** Frying Pan     **   Accuracy Rating: 80   Attack: 2");
+                    System.out.println("** Hands          **   Accuracy Rating: 80   Attack: 0");
                     System.out.println("** Mouth          **   Accuracy Rating: 80   Attack: 0");
                     System.out.println("** Pistol         **   Accuracy Rating: 70   Attack: 2");
                     System.out.println("** Shotgun        **   Accuracy Rating: 60   Attack: 6");
