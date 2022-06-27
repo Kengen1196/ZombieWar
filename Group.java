@@ -25,6 +25,8 @@ public class Group {
         this.faction = faction;
         // generates a random amount of combatants. Size is arbritrary to decided by me.
         numCombatants = rand.nextInt(20);
+        
+        // Created random weapon generator in Combatant class, which takes the place of this switch.
         Weapons weapon = null;
 
         // Function for generating survivors
@@ -33,6 +35,7 @@ public class Group {
             // Loops adding a random survivor entity based on random number generated and
             // assigns an id
             for (int x = 0; x < numCombatants; x++) {
+                /*
                 wc = rand.nextInt(7);
                 // weapons are chosen at random and assigned during creation
                 switch (wc) {
@@ -58,19 +61,20 @@ public class Group {
                         weapon = new FryingPan();
                         break;
                 }
-
+                * */
+                            
                 choice = rand.nextInt(3);
                 switch (choice) {
                     case 0:
-                        fighters.add(new Newbie(numNewbies, weapon));
+                        fighters.add(new Newbie(numNewbies, Combatant.randomWeapon("Newbie")));
                         numNewbies++;
 
                     case 1:
-                        fighters.add(new Mercenary(numMercenary, weapon));
+                        fighters.add(new Mercenary(numMercenary, Combatant.randomWeapon("Mercenary")));
                         numMercenary++;
 
                     case 2:
-                        fighters.add(new Soldier(numSoldiers, weapon));
+                        fighters.add(new Soldier(numSoldiers, Combatant.randomWeapon("Soldier")));
                         numSoldiers++;
                 }
             }
@@ -82,10 +86,10 @@ public class Group {
                 weapon = new Mouth();
                 switch (choice) {
                     case 0:
-                        fighters.add(new Common(numCommon, weapon));
+                        fighters.add(new Common(numCommon, Combatant.randomWeapon("Common")));
                         numCommon++;
                     case 1:
-                        fighters.add(new Tank(numTanks, weapon));
+                        fighters.add(new Tank(numTanks, Combatant.randomWeapon("Tank")));
                         numTanks++;
                 }
             }
